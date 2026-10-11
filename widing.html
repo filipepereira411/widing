@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Wide Meme Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px #ff00ff;
+            text-align: center;
+        }
+
+        /* Botão estilizado para carregar a foto */
+        .upload-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        .upload-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ff00ff;
+        }
+        #file-input {
+            display: none;
+        }
+
+        /* Contentor do Efeito Wide */
+        .meme-container {
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #fff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+            background: #111;
+            width: 480px; 
+            height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* A Imagem Dinâmica */
+        .wide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: scaleX(1);
+        }
+
+        /* Gatilho: Estica qualquer imagem carregada em 4x */
+        .meme-container:hover .wide-image, 
+        .meme-container:active .wide-image {
+            transform: scaleX(4);
+        }
+
+        .subtitle {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .music-caption {
+            margin-top: 8px;
+            color: #00ff00;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Universal Wide Generator</h1>
+
+    <!-- Botão para escolher o ficheiro -->
+    <button class="upload-btn" onclick="document.getElementById('file-input').click()">Escolher Qualquer Foto</button>
+    <input type="file" id="file-input" accept="image/*">
+
+    <div class="meme-container">
+        <!-- Imagem padrão inicial (Placeholder) -->
+        <img id="meme-pic" class="wide-image" src="https://picsum.photos" alt="Wide Preview">
+    </div>
+
+    <p class="subtitle">Passa o rato ou toca na imagem para aplicar o efeito W I D E</p>
+    <div class="music-caption">🎵 [Song for Denise Blasting] 🎵</div>
+
+    <script>
+        // JavaScript para ler o ficheiro local e colocá-lo no contentor do meme
+        const fileInput = document.getElementById('file-input');
+        const memePic = document.getElementById('meme-pic');
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    // Atualiza a imagem com o ficheiro que o utilizador escolheu
+                    memePic.src = event.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+</body>
+</html>
